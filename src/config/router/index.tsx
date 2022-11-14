@@ -1,13 +1,13 @@
-import { BrowserRouter, Routes, Route, useRoutes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../../screens/home";
-
-const App = () => useRoutes([{ path: "/", element: <Home /> }]);
+import Room from "../../screens/room";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/room" element={<Room />} />
       </Routes>
     </BrowserRouter>
   );

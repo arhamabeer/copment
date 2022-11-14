@@ -4,6 +4,9 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
+// TODO: authentication on search bar
+const isAuthenticated = false;
+
 function NavScrollExample() {
   return (
     <Navbar
