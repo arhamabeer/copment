@@ -38,11 +38,22 @@ function NavScrollExample() {
               </NavDropdown.Item>
             </NavDropdown> */}
           </Nav>
-          <Form className="d-flex">
+          <Form className="d-flex w-50">
+            <Button
+              variant="warning w-75"
+              style={{
+                color: `#000`,
+                fontWeight: `bold`,
+                fontSize: 15,
+                letterSpacing: 1,
+              }}
+            >
+              Add more
+            </Button>
             <Form.Control
               type="search"
               placeholder="Search"
-              className="me-2"
+              className="me-2 mx-2"
               aria-label="Search"
             />
             <Button variant="outline-info">Search</Button>
