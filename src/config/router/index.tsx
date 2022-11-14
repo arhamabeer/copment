@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, useRoutes } from "react-router-dom";
 import Home from "../../screens/home";
 
