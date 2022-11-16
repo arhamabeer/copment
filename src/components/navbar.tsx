@@ -3,15 +3,13 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import AddFileModal from "./addFileModal";
-
 // TODO: authentication on search bar
 // const isAuthenticated = false;
 
 function NavScrollExample() {
   const [show, setShow] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
     setShow(true);

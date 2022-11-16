@@ -1,7 +1,20 @@
+import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useMemo } from "react";
+export default function LectureDemoCard({ data }: any) {
+  const { course_name, author_name, content, updatedAt } = data;
 
-export default function LectureDemoCard() {
+  const formatted_date = useMemo(() => {
+    if (moment(updatedAt).startOf("hour").fromNow().split(" ")[0] >= `24`) {
+      return moment(updatedAt).startOf("day").fromNow();
+    } else {
+      return moment(updatedAt).startOf("hour").fromNow();
+    }
+  }, data);
+
+  // console.log(moment(updatedAt).startOf("hour").fromNow().split(" ")[0] >= 24);
+  console.log(formatted_date);
   return (
     <div
       className="card"
@@ -13,17 +26,14 @@ export default function LectureDemoCard() {
       }}
     >
       <div className="card-body">
-        <h5 className="card-title text-light">Card title</h5>
-        <h6 className="card-subtitle mb-2 text-info ">Card subtitle</h6>
-        <p className="card-text text-light">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
+        <h5 className="card-title text-light">{course_name}</h5>
+        <h6 className="card-subtitle mb-2 text-info ">{author_name}</h6>
+        <p className="card-text text-light">{content}</p>
         <div className="d-flex justify-content-between px-2 mb-3">
           <Button variant="success">Open</Button>
           <Button variant="danger">Delete</Button>
         </div>
-        <Card.Footer className="text-warning">2 days ago</Card.Footer>
+        <Card.Footer className="text-warning">{formatted_date}</Card.Footer>
       </div>
     </div>
   );
