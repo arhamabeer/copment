@@ -9,7 +9,7 @@ const API = axios.create({
 });
 
 export default function FileProvider({ children }: any) {
-  const [files, setFiles] = React.useState<File[]>([
+  const [files, setFiles] = React.useState<File[] | null>([
     {
       _id: "6374ae3fa53bc071997453c1",
       author_id: "abc1",
@@ -40,10 +40,22 @@ export default function FileProvider({ children }: any) {
 
   React.useEffect(() => {
     (async () => {
-      const response = await API("/getFile");
-      console.log(response);
+      // const response = await API("/getFile");
+      // console.log(response);
     })();
   }, []);
 
-  return <FileContext.Provider value={files}>{children}</FileContext.Provider>;
+  const saveRoom = async (data: any) => {
+    console.log(data);
+    API("/saveFile", {
+      method: "post",
+      data: JSON.stringify({ data }),
+    });
+  };
+
+  return (
+    <FileContext.Provider value={{ files, saveRoom }}>
+      {children}
+    </FileContext.Provider>
+  );
 }

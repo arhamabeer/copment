@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import useFile from "../hooks/file_hook";
 import { AddFile } from "../types/fileType";
 
 interface Props {
@@ -19,6 +20,8 @@ export default function AddFileModal({ show, setShow }: Props) {
     content: undefined,
   });
 
+  const { saveRoom } = useFile();
+
   const handleUpload = () => {
     if (
       file?.author_name === "" ||
@@ -29,9 +32,10 @@ export default function AddFileModal({ show, setShow }: Props) {
       alert("All fields are mandatory");
     } else {
       setShow(false);
+      saveRoom(file);
     }
   };
-  console.log(file);
+  // console.log(file);
   return (
     <>
       <Modal show={show} onHide={handleClose}>
