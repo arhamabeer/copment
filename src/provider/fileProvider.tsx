@@ -1,9 +1,15 @@
 import axios from "axios";
 import React from "react";
 import FileContext from "../context/FileContext";
+import { File } from "../types/fileType";
+
+const API = axios.create({
+  baseURL: "http://localhost:5000/",
+  headers: { Accept: "Application/json" },
+});
 
 export default function FileProvider({ children }: any) {
-  const [files, setFiles] = React.useState<any | null>([
+  const [files, setFiles] = React.useState<File[]>([
     {
       _id: "6374ae3fa53bc071997453c1",
       author_id: "abc1",
@@ -32,14 +38,9 @@ export default function FileProvider({ children }: any) {
     },
   ]);
 
-  const instance = axios.create({
-    baseURL: "http://localhost:5000/",
-    timeout: 1000,
-    headers: { Accept: "Application/json" },
-  });
   React.useEffect(() => {
     (async () => {
-      const response = await instance("/getFile");
+      const response = await API("/getFile");
       console.log(response);
     })();
   }, []);

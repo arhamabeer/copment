@@ -2,6 +2,8 @@ import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useMemo } from "react";
+import { File } from "../types/fileType";
+
 export default function LectureDemoCard({ data }: any) {
   const { course_name, author_name, content, updatedAt } = data;
 
@@ -12,9 +14,6 @@ export default function LectureDemoCard({ data }: any) {
       return moment(updatedAt).startOf("hour").fromNow();
     }
   }, data);
-
-  // console.log(moment(updatedAt).startOf("hour").fromNow().split(" ")[0] >= 24);
-  console.log(formatted_date);
   return (
     <div
       className="card"

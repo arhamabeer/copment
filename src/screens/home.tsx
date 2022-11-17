@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import LectureDemoCard from "../components/lectureDemoCard";
 import NavScrollExample from "../components/navbar";
 import useFile from "../hooks/file_hook";
+import { File } from "../types/fileType";
 
 export default function Home() {
-  const [files, setFiles] = useState<any>([]);
+  const [files, setFiles] = useState<File[] | null>(null);
   const data = useFile();
 
   useEffect(() => {
     setFiles(data);
   }, [data]);
 
-  console.log(files);
   return (
     <>
       <NavScrollExample />
@@ -33,7 +33,7 @@ export default function Home() {
           )
         ) : (
           <div className="container mb-3 d-flex flex-wrap">
-            <h1>Loadin...</h1>
+            <h1>Loading...</h1>
           </div>
         )}
       </div>
