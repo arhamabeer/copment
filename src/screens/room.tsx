@@ -2,10 +2,9 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import CreateRoomModal from "../components/createRoomModal";
+import useRoom from "../hooks/room_hook";
 
 interface Data {
-  author_email: string;
-  password: string;
   room_code: string;
   room_id: string;
 }
@@ -13,36 +12,25 @@ interface Data {
 function Room() {
   const [show, setShow] = useState(false);
   const [data, setData] = useState<Data>({
-    author_email: "",
-    password: "",
     room_id: "",
     room_code: "",
   });
+
+  const { enterRoom } = useRoom();
+
+  const handleEnter = () => {
+    if (data.room_code === "" || data.room_id === "") {
+      alert("Wrong Credentials");
+    } else {
+      enterRoom(data);
+    }
+  };
   return (
     <>
       <Form
         className="container d-flex justify-content-center align-items-center flex-column"
         style={{ height: "96vh" }}
       >
-        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-          <Form.Control
-            type="email"
-            onChange={(e) => {
-              setData((f) => ({ ...f, author_email: e.target.value }));
-            }}
-            placeholder="Your Email"
-            autoFocus
-          />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Control
-            onChange={(e) => {
-              setData((f) => ({ ...f, password: e.target.value }));
-            }}
-            type="password"
-            placeholder="Password"
-          />{" "}
-        </Form.Group>{" "}
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control
             onChange={(e) => {
@@ -62,7 +50,7 @@ function Room() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="button" onClick={() => handleEnter()}>
           Enter
         </Button>
         <Button

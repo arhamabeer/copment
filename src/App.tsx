@@ -2,14 +2,14 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Router from "./config/router";
 import NavScrollExample from "./components/navbar";
-import FileProvider from "./provider/fileProvider";
+import Provider from "./provider";
 export default function App() {
   return (
     <>
-      <FileProvider>
+      <Provider>
         <NavScrollExample />
         <Router />
-      </FileProvider>
+      </Provider>
     </>
   );
 }

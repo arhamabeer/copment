@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import useRoom from "../hooks/room_hook";
 
 interface Props {
   show: boolean;
@@ -20,10 +21,13 @@ export default function CreateRoomModal({ show, setShow }: Props) {
     password: "",
   });
 
+  const { saveRoom } = useRoom();
+
   const handleCreate = () => {
     if (data.password.length < 5 || data.author_email === "") {
       alert("Password must contain atleast 6 characters or invalid email");
     } else {
+      saveRoom(data);
       setShow(false);
     }
   };
@@ -36,17 +40,6 @@ export default function CreateRoomModal({ show, setShow }: Props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Room password</Form.Label>
-              <Form.Control
-                onChange={(e) => {
-                  setData((d) => ({ ...d, password: e.target.value }));
-                }}
-                type="password"
-                placeholder="password"
-                autoFocus
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 type="email"
@@ -54,6 +47,17 @@ export default function CreateRoomModal({ show, setShow }: Props) {
                   setData((f) => ({ ...f, author_email: e.target.value }));
                 }}
                 placeholder="name@example.com"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Room password</Form.Label>
+              <Form.Control
+                onChange={(e) => {
+                  setData((d) => ({ ...d, password: e.target.value }));
+                }}
+                type="password"
+                placeholder="password"
                 autoFocus
               />
             </Form.Group>

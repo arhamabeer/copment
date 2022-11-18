@@ -45,7 +45,7 @@ export default function FileProvider({ children }: any) {
     })();
   }, []);
 
-  const saveRoom = async (data: any, file: any) => {
+  const saveFile = async (data: any, file: any) => {
     const formData = new FormData();
 
     console.log(data);
@@ -64,7 +64,7 @@ export default function FileProvider({ children }: any) {
   };
 
   return (
-    <FileContext.Provider value={{ files, saveRoom }}>
+    <FileContext.Provider value={{ files, saveFile }}>
       {children}
     </FileContext.Provider>
   );

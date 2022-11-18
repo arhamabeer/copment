@@ -20,7 +20,7 @@ export default function AddFileModal({ show, setShow }: Props) {
     course_name: "",
   });
 
-  const { saveRoom } = useFile();
+  const { saveFile } = useFile();
 
   const handleUpload = () => {
     const formdata = new FormData();
@@ -35,7 +35,7 @@ export default function AddFileModal({ show, setShow }: Props) {
       // console.log(formdata.get("file"));
       setShow(false);
 
-      saveRoom(data, file);
+      saveFile(data, file);
     }
   };
   // console.log(file);
