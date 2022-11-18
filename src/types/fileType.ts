@@ -12,8 +12,8 @@ export type File = {
   __v: number;
 };
 export type AddFile = {
-  author_name?: string;
-  author_email?: string;
-  course_name?: string;
+  author_name?: string | any;
+  author_email?: string | any;
+  course_name?: string | any;
   content?: Blob;
 };

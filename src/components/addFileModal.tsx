@@ -1,4 +1,3 @@
-import { AnyAaaaRecord } from "dns";
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -13,26 +12,30 @@ interface Props {
 
 export default function AddFileModal({ show, setShow }: Props) {
   const handleClose = () => setShow(false);
-  const [file, setFile] = useState<AddFile | null>({
+  const [file, setFile] = useState<Blob | null>(null);
+
+  const [data, setData] = useState<AddFile | null>({
     author_name: "",
     author_email: "",
     course_name: "",
-    content: undefined,
   });
 
   const { saveRoom } = useFile();
 
   const handleUpload = () => {
+    const formdata = new FormData();
+
     if (
-      file?.author_name === "" ||
-      file?.author_email === "" ||
-      file?.content === undefined ||
-      file?.course_name === ""
+      data?.author_name === "" ||
+      data?.author_email === "" ||
+      data?.course_name === ""
     ) {
       alert("All fields are mandatory");
     } else {
+      // console.log(formdata.get("file"));
       setShow(false);
-      saveRoom(file);
+
+      saveRoom(data, file);
     }
   };
   // console.log(file);
@@ -48,7 +51,7 @@ export default function AddFileModal({ show, setShow }: Props) {
               <Form.Label>Your name</Form.Label>
               <Form.Control
                 onChange={(e) => {
-                  setFile((f) => ({ ...f, author_name: e.target.value }));
+                  setData((f) => ({ ...f, author_name: e.target.value }));
                 }}
                 type="text"
                 placeholder="name"
@@ -60,7 +63,7 @@ export default function AddFileModal({ show, setShow }: Props) {
               <Form.Control
                 type="email"
                 onChange={(e) => {
-                  setFile((f) => ({ ...f, author_email: e.target.value }));
+                  setData((f) => ({ ...f, author_email: e.target.value }));
                 }}
                 placeholder="name@example.com"
                 autoFocus
@@ -70,7 +73,7 @@ export default function AddFileModal({ show, setShow }: Props) {
               <Form.Label>Course name</Form.Label>
               <Form.Control
                 onChange={(e) => {
-                  setFile((f) => ({ ...f, course_name: e.target.value }));
+                  setData((f) => ({ ...f, course_name: e.target.value }));
                 }}
                 type="text"
                 placeholder="course"
@@ -84,7 +87,7 @@ export default function AddFileModal({ show, setShow }: Props) {
                 autoFocus
                 accept=".doc, .docx,.ppt, .pptx,.txt,.pdf"
                 onChange={(e: any) => {
-                  setFile((f) => ({ ...f, content: e.target.files[0] }));
+                  setFile(e.target.files[0]);
                 }}
               />
             </Form.Group>

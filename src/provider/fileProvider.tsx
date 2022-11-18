@@ -45,11 +45,21 @@ export default function FileProvider({ children }: any) {
     })();
   }, []);
 
-  const saveRoom = async (data: any) => {
+  const saveRoom = async (data: any, file: any) => {
+    const formData = new FormData();
+
     console.log(data);
+
+    formData.append("content", file as any);
+    formData.append("author_name", data?.author_name);
+    formData.append("author_email", data?.author_email);
+    formData.append("course_name", data?.course_name);
+
+    console.log(formData);
     API("/saveFile", {
+      headers: { "Content-Type": "multipart/form-data" },
       method: "post",
-      data: JSON.stringify({ data }),
+      data: formData,
     });
   };
 
