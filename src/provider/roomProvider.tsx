@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import RoomContext from "../context/RoomContext";
+import { LoginCredential } from "../types/fileType";
 
 interface Room {
   password: string;
@@ -12,7 +13,10 @@ const API = axios.create({
 });
 
 export default function RoomProvider({ children }: any) {
-  //   const [room, setRoom] = React.useState<Room | null>(null);
+  // const [room, setRoom] = React.useState<Room | null>(null);
+  const [loginCred, setLoginCred] = React.useState<LoginCredential | null>(
+    null
+  );
 
   React.useEffect(() => {
     (async () => {
@@ -34,7 +38,10 @@ export default function RoomProvider({ children }: any) {
       data: data,
     });
 
-    console.log(response);
+    const { token, result } = response.data;
+    const room_id = data.room_id || ``;
+    localStorage.setItem("_tkn_room_user_credential", response.data.token);
+    setLoginCred({ token, result, room_id });
   };
 
   return (

@@ -1,5 +1,4 @@
 export type File = {
-  _id: string;
   author_name: string;
   author_email: string;
   author_id: string;
@@ -16,4 +15,10 @@ export type AddFile = {
   author_email?: string | any;
   course_name?: string | any;
   content?: Blob;
+};
+
+export type LoginCredential = {
+  token: string;
+  result: string;
+  room_id: string;
 };

@@ -2,7 +2,6 @@ import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useMemo } from "react";
-import { File } from "../types/fileType";
 
 export default function LectureDemoCard({ data }: any) {
   const { course_name, author_name, content, updatedAt } = data;

@@ -5,12 +5,12 @@ import useFile from "../hooks/file_hook";
 import { File } from "../types/fileType";
 
 export default function Home() {
-  const [files, setFiles] = useState<File[] | null>(null);
-  const data = useFile();
+  const [file, setFile] = useState<File[] | null>(null);
+  const { files } = useFile();
 
   useEffect(() => {
-    setFiles(data);
-  }, [data]);
+    setFile(files);
+  }, [files]);
 
   return (
     <>
@@ -19,9 +19,9 @@ export default function Home() {
         className="container mb-3 d-flex flex-wrap"
         style={{ marginTop: "70px" }}
       >
-        {files ? (
-          files.length ? (
-            files.map((item: any, ind: number) => (
+        {file ? (
+          file.length ? (
+            file.map((item: any, ind: number) => (
               <div className="m-3" key={ind}>
                 <LectureDemoCard data={item} />
               </div>
