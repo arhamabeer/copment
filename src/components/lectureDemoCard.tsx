@@ -26,7 +26,9 @@ export default function LectureDemoCard({ data }: any) {
       <div className="card-body">
         <h5 className="card-title text-light">{course_name}</h5>
         <h6 className="card-subtitle mb-2 text-info ">{author_name}</h6>
-        <p className="card-text text-light">{content}</p>
+        <p className="card-text text-light">
+          {content.fieldname + ` / ` + content.originalname}
+        </p>
         <div className="d-flex justify-content-between px-2 mb-3">
           <Button variant="success">Open</Button>
           <Button variant="danger">Delete</Button>
