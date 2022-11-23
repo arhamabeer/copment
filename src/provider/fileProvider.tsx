@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useMemo } from "react";
 import FileContext from "../context/FileContext";
 import useRoom from "../hooks/room_hook";
 import { File } from "../types/fileType";
@@ -13,12 +13,14 @@ const API = axios.create({
   baseURL: SERVER,
   headers: { Accept: "Application/json" },
 });
-const token = localStorage.getItem(`_tkn_room_user_credential`);
 
 export default function FileProvider({ children }: any) {
   const [files, setFiles] = React.useState<File[] | null>([]);
 
   const { loginCred } = useRoom();
+  const token = useMemo(() => {
+    return localStorage.getItem(`_tkn_room_user_credential`);
+  }, [loginCred]);
 
   const room_id = React.useMemo(() => {
     return loginCred ? loginCred.room_id : "";

@@ -12,6 +12,8 @@ export default function Home() {
     setFile(files);
   }, [files]);
 
+  console.log(`home === `, files);
+
   return (
     <>
       <NavScrollExample />

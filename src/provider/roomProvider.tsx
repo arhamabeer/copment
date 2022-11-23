@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import RoomContext from "../context/RoomContext";
 import { LoginCredential } from "../types/fileType";
@@ -25,9 +25,19 @@ export default function RoomProvider({ children }: any) {
   const [loginCred, setLoginCred] = React.useState<LoginCredential | null>(
     null
   );
-  // let history = useHistory();
-  const navigate = useNavigate();
 
+  // const token = useMemo(() => {
+  //   return localStorage.getItem(`_tkn_room_user_credential`);
+  // }, [loginCred]);
+
+  // useEffect(() => {
+  //   if(token){
+  //     const response = await API("/verifyToken", {
+  //       method: "post",
+  //     });
+  //   }
+  // }, [token]);
+  const navigate = useNavigate();
   const saveRoom = async (data: Room) => {
     const response = await API("/saveRoom", {
       method: "post",

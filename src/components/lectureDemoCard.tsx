@@ -22,7 +22,6 @@ export default function LectureDemoCard({ data }: any) {
       className="card"
       style={{
         width: "20rem",
-        cursor: "pointer",
         backgroundColor: "#363431",
         boxShadow: "0px 0px 16px grey",
       }}
