@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import FileContext from "../context/FileContext";
+import useRoom from "../hooks/room_hook";
 import { File } from "../types/fileType";
 
 const dev = true;
@@ -17,8 +18,14 @@ const token = localStorage.getItem(`_tkn_room_user_credential`);
 export default function FileProvider({ children }: any) {
   const [files, setFiles] = React.useState<File[] | null>([]);
 
+  const { loginCred } = useRoom();
+
+  const room_id = React.useMemo(() => {
+    return loginCred ? loginCred.room_id : "";
+  }, [loginCred]);
+
+  // console.log("ROOM= === ", loginCred, SERVER);
   const fetchFiles = async () => {
-    const room_id = `1vh754yg9p`;
     const response = await API(`/getFile/${room_id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,7 +41,7 @@ export default function FileProvider({ children }: any) {
 
   const saveFile = async (data: any, file: any) => {
     const formData = new FormData();
-    const room_id = `1vh754yg9p`;
+    const room_id = loginCred ? loginCred.room_id : "";
     formData.append("content", file as any);
     formData.append("author_name", data?.author_name);
     formData.append("author_email", data?.author_email);

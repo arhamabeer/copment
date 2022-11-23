@@ -1,29 +1,32 @@
 import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import RoomContext from "../context/RoomContext";
 import { LoginCredential } from "../types/fileType";
+// import { useHistory } from "react-router-dom";
 
 interface Room {
   password: string;
   email: string;
 }
+
+const dev = true;
+
+const SERVER = dev
+  ? "https://aaa-copment-server.herokuapp.com/"
+  : "http://localhost:5000/";
+
 const API = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: SERVER,
   headers: { Accept: "Application/json" },
 });
 
 export default function RoomProvider({ children }: any) {
-  // const [room, setRoom] = React.useState<Room | null>(null);
   const [loginCred, setLoginCred] = React.useState<LoginCredential | null>(
     null
   );
-
-  React.useEffect(() => {
-    (async () => {
-      // const response = await API("/getFile");
-      // console.log(response);
-    })();
-  }, []);
+  // let history = useHistory();
+  const navigate = useNavigate();
 
   const saveRoom = async (data: Room) => {
     const response = await API("/saveRoom", {
@@ -42,10 +45,13 @@ export default function RoomProvider({ children }: any) {
     const room_id = data.room_id || ``;
     localStorage.setItem("_tkn_room_user_credential", response.data.token);
     setLoginCred({ token, result, room_id });
+    if (response.data.result) {
+      navigate("/");
+    }
   };
 
   return (
-    <RoomContext.Provider value={{ saveRoom, enterRoom }}>
+    <RoomContext.Provider value={{ saveRoom, enterRoom, loginCred }}>
       {children}
     </RoomContext.Provider>
   );
