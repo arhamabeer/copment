@@ -3,8 +3,13 @@ import React from "react";
 import FileContext from "../context/FileContext";
 import { File } from "../types/fileType";
 
+const dev = true;
+
+const SERVER = dev
+  ? "https://aaa-copment-server.herokuapp.com/"
+  : "http://localhost:5000/";
 const API = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: SERVER,
   headers: { Accept: "Application/json" },
 });
 const token = localStorage.getItem(`_tkn_room_user_credential`);
@@ -48,8 +53,12 @@ export default function FileProvider({ children }: any) {
     });
   };
 
+  const handleDownloadDoc = () => {
+    return SERVER;
+  };
+
   return (
-    <FileContext.Provider value={{ files, saveFile }}>
+    <FileContext.Provider value={{ files, saveFile, handleDownloadDoc }}>
       {children}
     </FileContext.Provider>
   );

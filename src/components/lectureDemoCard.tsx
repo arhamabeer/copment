@@ -2,9 +2,11 @@ import moment from "moment";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useMemo } from "react";
+import useFile from "../hooks/file_hook";
 
 export default function LectureDemoCard({ data }: any) {
   const { course_name, author_name, content, updatedAt } = data;
+  const { handleDownloadDoc } = useFile();
 
   const formatted_date = useMemo(() => {
     if (moment(updatedAt).startOf("hour").fromNow().split(" ")[0] >= `24`) {
@@ -13,6 +15,8 @@ export default function LectureDemoCard({ data }: any) {
       return moment(updatedAt).startOf("hour").fromNow();
     }
   }, data);
+
+  const server = handleDownloadDoc();
   return (
     <div
       className="card"
@@ -30,8 +34,12 @@ export default function LectureDemoCard({ data }: any) {
           {content.fieldname + ` / ` + content.originalname}
         </p>
         <div className="d-flex justify-content-between px-2 mb-3">
-          <Button variant="success">Open</Button>
-          <Button variant="danger">Delete</Button>
+          <Button variant="success" onClick={() => handleDownloadDoc()}>
+            Download
+          </Button>
+          <Button variant="danger" disabled>
+            Delete
+          </Button>
         </div>
         <Card.Footer className="text-warning">{formatted_date}</Card.Footer>
       </div>
